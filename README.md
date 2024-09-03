@@ -42,7 +42,7 @@ Per avviare il progetto in un ambiente Docker, eseguire il seguente comando:
 ```bash
 docker-compose up
 ```
-Accedere all'interfaccia frontend visitando http://localhost:<APP_PORT> nel browser.
+Accedere all'interfaccia frontend visitando http://localhost:<APP_PORT> nel browser. ( ad eccezione di diverse configurazioni apportate )
 
 Configurazione di Docker
 Il file docker-compose.yml definisce i seguenti servizi:
