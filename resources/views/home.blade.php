@@ -4,6 +4,7 @@
 @section('title', 'Home - Sistema di Gestione Ordini')
 @section('link')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <link href="https://cdn.datatables.net/2.1.5/css/dataTables.dataTables.min.css" rel="stylesheet">
 @endsection
 
 
@@ -103,5 +104,63 @@
 @endsection
 
 @section('scripts')
-    @vite('resources/js/home.js')
+    <script>
+        var totaleOrdini = $("#totaleOrdini");
+        var ordiniOdierni = $("#ordiniOdierni");
+        var sumOrdini = $("#sumOrdini");
+
+
+        function elaboroStatistiche(response) {
+            totaleOrdini.text(response.totale_ordini);
+            ordiniOdierni.text(response.ordini_odierni);
+            sumOrdini.html("&euro; "+response.somma);
+        }
+
+        $(document).ready(function () {
+            // Recupero le statistiche
+            $.ajax({
+                url:'api/orders/stats',
+                method: 'get',
+                dataType: 'json',
+                success: elaboroStatistiche
+            });
+
+            const datatables = $("#table").DataTable({
+                ajax: $("#table").attr('data-url'),
+                language: {
+                    url: "{{asset('i18n-datatables-it.json')}}"
+                },
+                processing: true,
+                serverSide: true,
+                searching: false,
+                columns: [
+                    {
+                        data: 'id',
+                        orderable: false,
+                        name: 'id',
+                    },
+                    {
+                        data: 'name',
+                        orderable: false,
+                        name: 'name',
+                    },
+                    {
+                        data: 'total_value',
+                        orderable: false,
+                        name: 'total_value',
+                        render: function (data,type,row) {
+                            return "&euro; "+data;
+                        }
+                    },
+                    {
+                        data: 'order_date',
+                        orderable: false,
+                        name: 'order_date'
+                    }
+                ]
+            });
+
+        })
+
+    </script>
 @endsection

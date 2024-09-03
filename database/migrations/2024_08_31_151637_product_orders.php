@@ -15,6 +15,9 @@ return new class extends Migration
             $table->foreignId('order_id')->references('id')->on('orders');
             $table->foreignId('product_id')->references('id')->on('products');
             $table->integer('qty')->default(1);
+            $table->string('name');
+            $table->text('description')->nullable();
+            $table->decimal('price', 8, 2);
         });
     }
 

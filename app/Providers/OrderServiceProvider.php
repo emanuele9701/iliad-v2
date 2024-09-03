@@ -51,7 +51,7 @@ class OrderServiceProvider extends ServiceProvider
             foreach ($data['products'] as $productData) {
                 $product = Product::find($productData['id']);
                 if ($product) {
-                    $order->products()->attach($product->id, ['qty' => $productData['quantity']]);
+                    $order->products()->attach($product->id, ['qty' => $productData['quantity'],'name' => $product->name,'price' => $product->price,'description' => $product->description]);
                     $totalValue += $product->price * $productData['quantity'];
                 }
             }
@@ -87,7 +87,7 @@ class OrderServiceProvider extends ServiceProvider
             foreach ($data['products'] as $productData) {
                 $product = Product::find($productData['id']);
                 if ($product) {
-                    $order->products()->attach($product->id, ['qty' => $productData['quantity']]);
+                    $order->products()->attach($product->id, ['qty' => $productData['quantity'],'name' => $product->name,'price' => $product->price,'description' => $product->description]);
                     $totalValue += $product->price * $productData['quantity'];
                 }
             }

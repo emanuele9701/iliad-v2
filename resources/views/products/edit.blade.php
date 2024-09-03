@@ -54,5 +54,56 @@
 @endsection
 
 @section('scripts')
-    @vite(['resources/js/products.js'])
+    <script>
+        $(document).ready(function () {
+            var prodotto = recuperoInfoProdotto();
+
+            if (prodotto != null) {
+                // Prodotto caricato
+                $("#name").val(prodotto.name);
+                $("#spn-id").text(prodotto.id);
+                $("textarea[name='description']").val(prodotto.description);
+                $("#price").val(prodotto.price);
+            }
+
+            $("form").on('submit', function (e) {
+                $("button[type='submit']").attr('disabled', '');
+                $("button[type='submit']").find('.spinner-border').removeClass('d-none');
+
+                e.preventDefault();
+                var url = "";
+                var method = "";
+                url = URL_BASE_API + '/products/' + $("input[name='id_prodotto']").val() + "";
+                method = 'put';
+                var serializedForm = $(this).serializeArray();
+                $.ajax({
+                    url: url,
+                    method: method,
+                    data: serializedForm,
+                    success: function (response) {
+                        $("button[type='submit']").find('.spinner-border').addClass('d-none');
+                        $("button[type='submit']").removeAttr('disabled');
+                        if (response.data) {
+                            $("#modalSuccessSimple").modal('show');
+                        } else {
+                            $("#modalErrorSimple").modal('show');
+                        }
+                    },
+                    error: function (response) {
+                        $("button[type='submit']").find('.spinner-border').addClass('d-none');
+                        $("button[type='submit']").removeAttr('disabled');
+                        $("#modalErrorSimple div.modal-body span#errore").text("");
+                        if (response.responseJSON.message !== undefined) {
+                            setTimeout(function () {
+                                $("#modalErrorSimple").modal('show');
+                                $("#modalErrorSimple div.modal-body span#errore").text(response.responseJSON.message);
+                            }, 1500);
+                        }
+                    }
+                });
+            });
+        });
+
+
+    </script>
 @endsection

@@ -60,5 +60,46 @@
 @endsection
 
 @section('scripts')
-    @vite(['resources/js/products.js'])
+
+    <script>
+        $(document).ready(function () {
+
+            $("form").on('submit', function (e) {
+                $("button[type='submit']").attr('disabled', '');
+                $("button[type='submit']").find('.spinner-border').removeClass('d-none');
+
+                e.preventDefault();
+                var url = "";
+                var method = "";
+                url = URL_BASE_API + '/products';
+                method = 'post';
+                var serializedForm = $(this).serializeArray();
+                $.ajax({
+                    url: url,
+                    method: method,
+                    data: serializedForm,
+                    success: function (response) {
+                        $("button[type='submit']").find('.spinner-border').addClass('d-none');
+                        $("button[type='submit']").removeAttr('disabled');
+                        if (response.data) {
+                            $("#modalSuccessSimple").modal('show');
+                        } else {
+                            $("#modalErrorSimple").modal('show');
+                        }
+                    },
+                    error: function (response) {
+                        $("button[type='submit']").find('.spinner-border').addClass('d-none');
+                        $("button[type='submit']").removeAttr('disabled');
+                        $("#modalErrorSimple div.modal-body span#errore").text("");
+                        if (response.responseJSON.message !== undefined) {
+                            setTimeout(function () {
+                                $("#modalErrorSimple").modal('show');
+                                $("#modalErrorSimple div.modal-body span#errore").text(response.responseJSON.message);
+                            }, 1500);
+                        }
+                    }
+                });
+            });
+        });
+    </script>
 @endsection

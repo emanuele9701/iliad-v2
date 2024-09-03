@@ -5,7 +5,6 @@
     <title>@yield('title', 'Gestione Ordini')</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    @vite(['resources/css/app.css','resources/js/lib/DataTables/datatables.css','resources/js/app.js'])
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     @yield('link')
@@ -14,13 +13,15 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
     <div class="container-fluid">
         <a class="navbar-brand ps-2" href="{{ route('home') }}">Home</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mx-auto">
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="ordersDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="ordersDropdown" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
                         Ordini
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="ordersDropdown">
@@ -29,7 +30,8 @@
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="productsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="productsDropdown" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
                         Prodotti
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="productsDropdown">
@@ -80,12 +82,62 @@
         </div>
     </div>
 </div>
-@vite(['resources/js/lib/jquery/jquery.js','resources/js/lib/DataTables/datatables.js'])
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
+<script src="https://cdn.datatables.net/2.1.5/js/dataTables.min.js" crossorigin="anonymous"></script>
 <script>
     const URL_BASE_API = "{{env('APP_URL')}}/api";
+
+    function recuperoInfoOrdine() {
+        var ordine = null;
+        $.ajax({
+            async: false,
+            url: URL_BASE_API + '/orders/' + $("input[name='id_ordine']").val(),
+            method: 'get',
+            success: function (response) {
+                if (response.data) {
+                    ordine = response.data;
+                }
+                return false;
+            }
+        });
+        return ordine;
+    }
+
+    function recuperoInfoProdotto() {
+        var ordine = null;
+        $.ajax({
+            async: false,
+            url: URL_BASE_API + '/products/' + $("input[name='id_prodotto']").val(),
+            method: 'get',
+            success: function (response) {
+                if (response.esito) {
+                    ordine = response.object;
+                }
+            }
+        });
+        return ordine;
+    }
+
+    function openFormElimina(element) {
+        var parent = $(element.currentTarget).parent();
+        $($(parent).find('#modalDelete')).modal('show');
+    }
+    function searchTextTable(element) {
+        if (element.value.length > 2) {
+            var index = $(element).parent().parent().index();
+
+            table.column(index).search(element.value).draw();
+        }
+    }
+    $(document).ready(function () {
+        $.ajaxSetup({
+            headers:
+                {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}
+        });
+    });
 </script>
 @yield('scripts')
 </body>

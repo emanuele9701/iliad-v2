@@ -21,7 +21,7 @@ class UpdateOrderRequest extends FormRequest
 
             'order_date' => 'required|date',
             'description' => 'sometimes|required|string',
-            'products' => 'sometimes|required|array',
+            'products' => 'required|array',
             'products.*.id' => 'required_with:products|exists:products,id',
             'products.*.quantity' => 'required_with:products|integer|min:1',
         ];
