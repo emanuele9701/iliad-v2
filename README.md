@@ -24,7 +24,7 @@ Questo progetto ha come obiettivo la creazione di un sistema per monitorare e ge
 Installare le dipendenze:
 
    ```bash
-composer install
+composer update
    ```
 Configurazione dell'ambiente:
 
