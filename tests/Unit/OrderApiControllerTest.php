@@ -63,7 +63,12 @@ class OrderApiControllerTest extends TestCase
             'price' => 87.00, // Assicurati che il prezzo sia in formato float
         ]);
 
-        $order->products()->attach($product->id, ['qty' => 1]);
+        $order->products()->attach($product->id, [
+            'qty' => 1,
+            'name'=>$product->name,
+            'price'=>$product->price,
+            'description'=>$product->description
+        ]);
 
         $response = $this->putJson("/api/orders/{$order->id}", [
             'customer_name' => 'Updated Name',
@@ -109,7 +114,12 @@ class OrderApiControllerTest extends TestCase
             'price' => 50.00,
         ]);
 
-        $order->products()->attach($product->id, ['qty' => 2]);
+        $order->products()->attach($product->id, [
+            'qty' => 2,
+            'name'=>$product->name,
+            'price'=>$product->price,
+            'description'=>$product->description
+        ]);
 
         $response = $this->getJson("/api/orders/{$order->id}");
 

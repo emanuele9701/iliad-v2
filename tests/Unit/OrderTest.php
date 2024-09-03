@@ -71,7 +71,12 @@ class OrderTest extends TestCase
             'price' => 50.00,
         ]);
 
-        $order->products()->attach($product->id, ['qty' => 2]);
+        $order->products()->attach($product->id, [
+            'qty' => 2,
+            'name'=>$product->name,
+            'price'=>$product->price,
+            'description'=>$product->description
+        ]);
 
         $this->assertDatabaseHas('products_order', [
             'order_id' => $order->id,
