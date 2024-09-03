@@ -17,6 +17,6 @@ use Illuminate\Support\Facades\Route;
 Route::group(['as' => 'api.'],function () {
     Route::get('orders/stats', [\App\Http\Controllers\OrderApiController::class, 'stats'])->name('orders.stats');
     Route::get('products/search', [\App\Http\Controllers\ProductApiController::class, 'search'])->name('products.search');
-    Route::resource('products','ProductApiController');
-    Route::resource('orders','OrderApiController');
+    Route::resource('products',\App\Http\Controllers\ProductApiController::class);
+    Route::resource('orders',\App\Http\Controllers\OrderApiController::class);
 });

@@ -1,7 +1,7 @@
 <!-- resources/views/orders/edit.blade.php -->
 @extends('layouts.app')
 
-@section('title', 'Modifica Ordine')
+@section('title', 'Nuovo ordine')
 @section('link')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
@@ -83,7 +83,7 @@
                     <button type="submit" class="btn btn-primary">Salva ordine<div class="spinner-border ms-2 d-none" role="status">
                             <span class="visually-hidden">Loading...</span>
                         </div></button>
-                    <a href="{{ route('orders.index') }}" class="btn btn-secondary">Annulla</a>
+                    <a href="{{ route('orders.index') }}" class="btn btn-secondary">Torna agli ordini</a>
                 </div>
             </div>
         </div>

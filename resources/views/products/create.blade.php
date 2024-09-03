@@ -52,7 +52,7 @@
                     <button type="submit" class="btn btn-primary">Crea Prodotto<div class="spinner-border ms-2 d-none" role="status">
                             <span class="visually-hidden">Loading...</span>
                         </div></button>
-                    <a href="{{ route('products.index') }}" class="btn btn-secondary">Annulla</a>
+                    <a href="{{ route('products.index') }}" class="btn btn-secondary">Torna ai prodotti</a>
                 </div>
             </div>
         </div>
