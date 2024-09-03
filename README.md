@@ -5,7 +5,7 @@ Questo progetto ha come obiettivo la creazione di un sistema per monitorare e ge
 
 ## Requisiti di Sistema
 - **Software**:
-    - PHP (versione 7.4 o superiore)
+    - PHP (versione 8.3)
     - Composer
     - Docker (per l'ambiente containerizzato)
     - Node v18.19
