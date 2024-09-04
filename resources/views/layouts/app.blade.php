@@ -113,8 +113,8 @@
             url: URL_BASE_API + '/products/' + $("input[name='id_prodotto']").val(),
             method: 'get',
             success: function (response) {
-                if (response.esito) {
-                    ordine = response.object;
+                if (response.data) {
+                    ordine = response.data;
                 }
             }
         });

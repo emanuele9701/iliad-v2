@@ -18,7 +18,7 @@ class UpdateProductRequest extends FormRequest
         return [
             'name' => 'required|string|max:255|unique:products,name',
             'description' => 'required|string',
-            'price' => 'required|numeric|min:0',
+            'price' => 'required|numeric|min:0|max:1000000',
         ];
     }
 
@@ -31,6 +31,7 @@ class UpdateProductRequest extends FormRequest
             'price.required' => 'Il prezzo del prodotto è obbligatorio.',
             'price.numeric' => 'Il prezzo deve essere un numero.',
             'price.min' => 'Il prezzo non può essere negativo.',
+            'price.max' => 'Il prezzo non può essere maggiore di 1000000.',
         ];
     }
 }
