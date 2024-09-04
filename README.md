@@ -6,10 +6,9 @@ Questo progetto ha come obiettivo la creazione di un sistema per monitorare e ge
 ## Requisiti di Sistema
 - **Software**:
     - PHP (versione 8.2)
+      - estensione php-gd
     - Composer
     - Docker (per l'ambiente containerizzato)
-    - Node v18.19
-    - Npm v10.2
 - **Framework**
     - Laravel v10 
 - **Hardware**:
@@ -30,19 +29,28 @@ Configurazione dell'ambiente:
 
 Creare un file .env basato su .env.example e configurare le variabili necessarie, inclusi:
 ```bash
-DB_DATABASE: Nome del database ( recuperarlo da docker-composer.yml )
-DB_USERNAME: Nome utente del database ( recuperarlo da docker-composer.yml )
-DB_PASSWORD: Password del database ( recuperarlo da docker-composer.yml )
+DB_DATABASE: Nome del database da creare
+DB_USERNAME: Nome utente del database da creare
+DB_PASSWORD: Password del database da creare
+DB_HOST: indicare mysql
 WWWUSER: ID utente per il web server ( io ho usato 1000 )
 WWWGROUP: ID gruppo per il web server ( io ho usato 1000 )
 APP_PORT: è il valore che userà docker per mettere in ascolto il server. Io ho usato 8080.
 ```
+
 ## Esecuzione del Progetto
 Per avviare il progetto in un ambiente Docker, eseguire il seguente comando:
+
 ```bash
-docker-compose up
+docker-compose up --build
 ```
-Accedere all'interfaccia frontend visitando http://localhost:<APP_PORT> nel browser. ( ad eccezione di diverse configurazioni apportate )
+La build ha uno script sh che attende 60 prima di procedere a creare il db del progetto. Questo per concedere la possibilità di accendersi correttamente ( il db ). 
+
+Appena nella console trovate un messaggio simile a questo
+```bash
+INFO  Server running on [http://0.0.0.0:80].
+```
+Allora il server è pronto ed è possibile  accede all'interfaccia frontend visitando http://localhost:<APP_PORT> nel browser. ( ad eccezione di diverse configurazioni apportate )
 
 Configurazione di Docker
 Il file docker-compose.yml definisce i seguenti servizi:
