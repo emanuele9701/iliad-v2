@@ -36,7 +36,7 @@ DB_HOST: indicare mysql
 WWWUSER: ID utente per il web server ( io ho usato 1000 )
 WWWGROUP: ID gruppo per il web server ( io ho usato 1000 )
 APP_PORT: è il valore che userà docker per mettere in ascolto il server. Io ho usato 8080.
-APP_URL: Impostare indirizzo ip/url dedicato a questo progetto. ( includendo il protocollo http / https )
+APP_URL: Impostare indirizzo ip/url dedicato a questo progetto.  ( includendo il protocollo http / https )
 ```
 
 ## Esecuzione del Progetto
